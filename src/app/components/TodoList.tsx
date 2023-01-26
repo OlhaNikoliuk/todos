@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Checkbox } from "@mui/material";
-import { useTodos } from "../../data/store.ts";
+import { useTodos } from "../../data/store";
 import { BsTrash } from "react-icons/bs";
 import { FiEdit2 } from "react-icons/fi";
 import { Todo } from "../../data/utils/types";
-import { ConfirmModal } from "./ConfirmModal.tsx";
+import { ConfirmModal } from "./ConfirmModal";
 import { styled } from "@mui/system";
 
 const StyledCheckBox = styled(Checkbox)({
@@ -44,9 +44,7 @@ const TodoList = ({ todos, setTodoToEdit, openModal }: TodoListProps) => {
               />
               <div className="text-start">
                 <p className="font-semibold">{todo.title}</p>
-                {todo.description && (
-                  <p className="font-normal text-xs">{todo.description}</p>
-                )}
+                {todo.description && <p className="font-normal text-xs">{todo.description}</p>}
               </div>
             </div>
             <div className="flex gap-3 items-center cursor-pointer">
