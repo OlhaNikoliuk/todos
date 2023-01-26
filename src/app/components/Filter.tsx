@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, SelectProps } from "@mui/material";
 import styled from "@emotion/styled";
 
 const StyledSelect = styled(Select)({
@@ -18,17 +18,29 @@ const StyledSelect = styled(Select)({
   "& .dropdown": {
     background: "#161a2b",
   },
+
+  "& .MuiFormControlLabel-root, & .MuiFormLabel-root.MuiInputLabel-root, & .MuiFormLabel-root.MuiInputLabel-root.Mui-focused":
+    {
+      opacity: "0.7",
+      fontSize: "14px",
+      color: "#e2e2e2",
+    },
 });
 
-interface FilterProps {
+interface FilterProps extends SelectProps {
   options: { value: string; label: string }[];
   onChange: (e: any) => any;
 }
 
-export const Filter = ({ options, onChange }: FilterProps) => {
+export const Filter = ({
+  options,
+  onChange,
+  defaultValue,
+  ...props
+}: FilterProps) => {
   return (
     <StyledSelect
-      defaultValue={options[0].value}
+      defaultValue={defaultValue || options[0].value}
       onChange={onChange}
       className="mb-4"
       MenuProps={{
@@ -39,9 +51,10 @@ export const Filter = ({ options, onChange }: FilterProps) => {
           },
         },
       }}
+      {...props}
     >
       {options.map((option) => (
-        <MenuItem value={option.value} key={option.value} className="oala">
+        <MenuItem value={option.value} key={option.value}>
           {option.label}
         </MenuItem>
       ))}

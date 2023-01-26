@@ -1,16 +1,18 @@
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Todo } from "./utils/types";
+import { Todo, TodoCategory } from "./utils/types";
 
 export interface TodosState {
   todos: Todo[];
   addTodo: ({
     title,
     description,
+    category,
   }: {
     title: string;
     description?: string;
+    category: TodoCategory;
   }) => void;
   removeTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
@@ -18,24 +20,35 @@ export interface TodosState {
 }
 
 export interface FilterStore {
-  filter: string;
-  setFilter: (filter: string) => void;
+  filter: { label: string; value: boolean | undefined };
+  setFilter: (filter: { label: string; value: boolean | undefined }) => void;
 }
 
 export const useTodos = create<TodosState>()(
   persist(
     (set) => ({
       todos: [
-        { id: "1", title: "Learn JS", completed: false },
-        { id: "2", title: "Learn React", completed: false },
+        {
+          id: "1",
+          title: "Learn JS",
+          completed: false,
+          category: TodoCategory.study,
+        },
+        {
+          id: "2",
+          title: "Learn React",
+          completed: false,
+          category: TodoCategory.study,
+        },
       ],
 
-      addTodo: ({ title, description }) =>
+      addTodo: ({ title, description, category }) =>
         set((state) => {
           const newTodo = {
             id: nanoid(),
             title,
             description,
+            category,
             completed: false,
           };
           return { todos: [newTodo, ...state.todos] };
@@ -69,6 +82,6 @@ export const useTodos = create<TodosState>()(
 );
 
 export const useFilter = create<FilterStore>((set) => ({
-  filter: "all",
+  filter: { label: "all", value: undefined },
   setFilter: (filter) => set({ filter }),
 }));
