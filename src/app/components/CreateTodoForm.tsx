@@ -1,28 +1,25 @@
 import { Modal, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Todo } from "../data/utils/types.ts";
-import { AddButton } from "./AddButton.tsx";
-import { TodosState, useTodos } from "../../data/store.ts";
+import { AddButton } from "./AddButton";
+import { TodosState, useTodos } from "../../data/store";
 import { styled } from "@mui/system";
+import { Todo } from "../../data/utils/types";
 
 const StyledInput = styled(TextField)({
   color: "#e2e2e2",
-  "& .MuiInputBase-root.MuiOutlinedInput-root, &.MuiOutlinedInput-notchedOutline, & .MuiFormLabel-root.MuiInputLabel-root, & .MuiFormLabel-root.MuiInputLabel-root.Mui-focused":
-    {
-      color: "#e2e2e2",
-    },
+  "& .MuiInputBase-root.MuiOutlinedInput-root, &.MuiOutlinedInput-notchedOutline, & .MuiFormLabel-root.MuiInputLabel-root, & .MuiFormLabel-root.MuiInputLabel-root.Mui-focused": {
+    color: "#e2e2e2",
+  },
 
-  "& .MuiFormLabel-root.MuiInputLabel-root, & .MuiFormLabel-root.MuiInputLabel-root.Mui-focused":
-    {
-      opacity: "0.7",
-      fontSize: "14px",
-    },
+  "& .MuiFormLabel-root.MuiInputLabel-root, & .MuiFormLabel-root.MuiInputLabel-root.Mui-focused": {
+    opacity: "0.7",
+    fontSize: "14px",
+  },
 
-  "& fieldset.MuiOutlinedInput-notchedOutline, &:hover fieldset.MuiOutlinedInput-notchedOutline, & .Mui-focused fieldset.MuiOutlinedInput-notchedOutline":
-    {
-      borderColor: " #5d0cff",
-    },
+  "& fieldset.MuiOutlinedInput-notchedOutline, &:hover fieldset.MuiOutlinedInput-notchedOutline, & .Mui-focused fieldset.MuiOutlinedInput-notchedOutline": {
+    borderColor: " #5d0cff",
+  },
 });
 
 interface CreateTodoFormProps {
@@ -36,11 +33,7 @@ interface TodoFormProps {
   description?: string;
 }
 
-const CreateTodoForm = ({
-  openModal,
-  closeModal,
-  initialValue,
-}: CreateTodoFormProps) => {
+const CreateTodoForm = ({ openModal, closeModal, initialValue }: CreateTodoFormProps) => {
   const { handleSubmit, control, reset } = useForm<TodoFormProps>({
     defaultValues: {
       title: initialValue?.title || "",
@@ -86,26 +79,10 @@ const CreateTodoForm = ({
       aria-describedby="simple-modal-description"
     >
       <div className="absolute top-0 right-0 p-10 pt-20 w-500 m-auto min-h-screen flex align-center justify-center rounded-md bg-dark">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col w-full [&>*:not(:last-child)]:mb-5"
-        >
-          <Controller
-            name="title"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <StyledInput {...field} autoFocus label="Title" />
-            )}
-          />
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full [&>*:not(:last-child)]:mb-5">
+          <Controller name="title" control={control} rules={{ required: true }} render={({ field }) => <StyledInput {...field} autoFocus label="Title" />} />
 
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <StyledInput {...field} className="mb-5 " label="Description" />
-            )}
-          />
+          <Controller name="description" control={control} render={({ field }) => <StyledInput {...field} className="mb-5 " label="Description" />} />
           <AddButton type="submit" text="Add" />
         </form>
       </div>
