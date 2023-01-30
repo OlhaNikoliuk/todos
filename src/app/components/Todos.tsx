@@ -12,7 +12,7 @@ import { categoriesOptions } from "../../data/utils/categoriesOptions";
 import { getCurrentColor } from "../../data/utils/getCurrentColor";
 import { BsListCheck } from "react-icons/bs";
 
-export const Home = () => {
+export const Todos = () => {
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
