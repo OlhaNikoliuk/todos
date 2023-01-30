@@ -9,31 +9,17 @@ module.exports = {
         white: "#ffffff",
         dark: "#161a2b",
         bright: "#5d0cff",
-      },
-
-      backgroundColor: {
-        home: "linear-gradient(90deg,    rgba(93, 12, 255, 1) 0%,    rgba(155, 0, 250, 1) 100% )",
-        work: "linear-gradient(    90deg,    rgba(20, 159, 255, 1) 0%,    rgba(17, 122, 255, 1) 100%  )",
-        study:
-          "linear-gradient(    90deg,    rgba(255, 12, 241, 1) 0%,    rgba(250, 0, 135, 1) 100%  )",
-        books:
-          "linear-gradient(  90deg,    rgba(255, 118, 20, 1) 0%,    rgba(255, 84, 17, 1) 100%  )",
+        grey: "#808080",
       },
 
       backgroundImage: {
         "main-gradient":
           "linear-gradient(90deg, rgba(93, 12, 255, 1) 0%,    rgba(155, 0, 250, 1) 100%  )",
-        "0n": "linear-gradient(90deg,    rgba(93, 12, 255, 1) 0%,    rgba(155, 0, 250, 1) 100% )",
-        "1n": " linear-gradient(    90deg,    rgba(20, 159, 255, 1) 0%,    rgba(17, 122, 255, 1) 100%  )",
-        "2n": "linear-gradient(    90deg,    rgba(255, 12, 241, 1) 0%,    rgba(250, 0, 135, 1) 100%  )",
-        "3n": "linear-gradient(  90deg,    rgba(255, 118, 20, 1) 0%,    rgba(255, 84, 17, 1) 100%  )",
+      },
 
-        home: "linear-gradient(90deg,    rgba(93, 12, 255, 1) 0%,    rgba(155, 0, 250, 1) 100% )",
-        work: "linear-gradient(    90deg,    rgba(20, 159, 255, 1) 0%,    rgba(17, 122, 255, 1) 100%  )",
-        study:
-          "linear-gradient(    90deg,    rgba(255, 12, 241, 1) 0%,    rgba(250, 0, 135, 1) 100%  )",
-        books:
-          "linear-gradient(  90deg,    rgba(255, 118, 20, 1) 0%,    rgba(255, 84, 17, 1) 100%  )",
+      height: {
+        "1px": "1px",
+        "2px": "2px",
       },
 
       minHeight: {
