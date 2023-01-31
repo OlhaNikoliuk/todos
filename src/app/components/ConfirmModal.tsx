@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 
 interface ConfirmModalProps {
@@ -10,6 +10,7 @@ interface ConfirmModalProps {
   confirmBtnText?: string;
   handleReject: () => void;
   rejectBtnText?: string;
+  isLoading?: boolean;
 }
 
 export const ConfirmModal = ({
@@ -20,6 +21,7 @@ export const ConfirmModal = ({
   confirmBtnText = "Confirm",
   handleReject,
   rejectBtnText = "Close",
+  isLoading = false,
 }: ConfirmModalProps) => {
   return (
     <Modal
@@ -38,12 +40,14 @@ export const ConfirmModal = ({
         <p className="text-white text-lg  font-semibold mb-8">{text}</p>
         <div className="flex justify-end text-white flex gap-8">
           <button
+            disabled={isLoading}
             onClick={handleReject}
             className="bg-white text-bright px-6 py-3 rounded-md  text-white font-semibold text-md flex items-center justify-center"
           >
             {rejectBtnText}
           </button>
           <button
+            disabled={isLoading}
             onClick={handleConfirm}
             className="bg-main-gradient px-6 py-3 rounded-md text-white font-semibold text-md flex items-center justify-center"
           >

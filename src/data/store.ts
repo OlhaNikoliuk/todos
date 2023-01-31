@@ -1,8 +1,15 @@
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Todo, TodoCategory } from "./utils/types";
+import { TodoCategory } from "./utils/types";
 
+export type Todo = {
+  id: string;
+  title: string;
+  completed: boolean;
+  description?: string;
+  category?: TodoCategory;
+};
 export interface TodosState {
   todos: Todo[];
   addTodo: ({

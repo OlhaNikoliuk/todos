@@ -15,6 +15,9 @@ module.exports = {
       backgroundImage: {
         "main-gradient":
           "linear-gradient(90deg, rgba(93, 12, 255, 1) 0%,    rgba(155, 0, 250, 1) 100%  )",
+        "back-button":
+          "linear-gradient(90deg, rgba(91,4,149,1) 0%, rgba(209,45,83,1) 100%)",
+        notFound: "url('images/notFound.png')",
       },
 
       height: {
@@ -44,6 +47,8 @@ module.exports = {
 
       boxShadow: {
         default: "0px 0px 8px 0px rgba(255,255,255,0.6)",
+        hover:
+          "0px 3px 8px rgba(20, 20, 30, 0.05), 0px 6px 15px rgba(20, 20, 30, 0.05)",
       },
     },
   },

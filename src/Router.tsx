@@ -2,8 +2,12 @@ import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Todos } from "./app/components/Todos";
 import { NotFound } from "./app/components/NotFound";
+import { QueryClient } from "@tanstack/react-query";
 
 const App = () => {
+  // Create a client
+  const queryClient = new QueryClient();
+
   return (
     <Routes>
       <Route index path="/todos" element={<Todos />} />

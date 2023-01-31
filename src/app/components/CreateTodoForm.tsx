@@ -7,6 +7,7 @@ import { styled } from "@mui/system";
 import { Todo, TodoCategory } from "../../data/utils/types";
 import { Filter } from "./Filter";
 import { categoriesOptions } from "../../data/utils/categoriesOptions";
+import { useCreateTodo, useEditTodo } from "../../data/hooks";
 
 const StyledInput = styled(TextField)({
   color: "#e2e2e2",
@@ -31,6 +32,7 @@ interface CreateTodoFormProps {
   openModal: boolean;
   closeModal: () => void;
   initialValue?: Todo;
+  searchParams?: URLSearchParams;
 }
 
 interface TodoFormProps {
@@ -43,7 +45,11 @@ const CreateTodoForm = ({
   openModal,
   closeModal,
   initialValue,
+  searchParams,
 }: CreateTodoFormProps) => {
+  const { mutate: createTodo } = useCreateTodo();
+  const { mutate: editTodo } = useEditTodo();
+
   const { handleSubmit, control, reset } = useForm<TodoFormProps>({
     defaultValues: {
       title: initialValue?.title || "",
@@ -52,22 +58,26 @@ const CreateTodoForm = ({
     },
   });
 
-  const addTodo = useTodos((store: TodosState) => store.addTodo);
-  const editTodo = useTodos((store: TodosState) => store.editTodo);
-
   const onSubmit = (data: TodoFormProps) => {
     if (initialValue) {
       editTodo({
-        ...initialValue,
-        title: data.title,
-        description: data?.description,
-        category: data?.category,
+        id: initialValue.id,
+        values: {
+          ...initialValue,
+          title: data.title,
+          description: data?.description,
+          category: data.category,
+        },
       });
     } else {
-      addTodo({
-        title: data.title,
-        description: data?.description,
-        category: data.category,
+      createTodo({
+        values: {
+          title: data.title,
+          description: data?.description,
+          category: data.category,
+          completed: false,
+        },
+        params: searchParams,
       });
     }
 

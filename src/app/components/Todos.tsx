@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
-import { useFilter, useTodos } from "../../data/store";
 import { filterOptions } from "../../data/utils/filterOptions";
 import { Todo } from "../../data/utils/types";
 import { AddButton } from "./AddButton";
@@ -11,26 +10,18 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { categoriesOptions } from "../../data/utils/categoriesOptions";
 import { getCurrentColor } from "../../data/utils/getCurrentColor";
 import { BsListCheck } from "react-icons/bs";
+import { useTodosList } from "../../data/hooks";
 
 export const Todos = () => {
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({});
   const [openModal, setOpenModal] = useState(false);
   const [todoToEdit, setTodoToEdit] = useState<Todo | null>(null);
 
-  const filter = useFilter((store) => store.filter);
-  const setFilter = useFilter((store) => store.setFilter);
-
-  const todos = useTodos((store) =>
-    store.todos.filter(
-      (todo) =>
-        (filter.value ? todo.completed === filter.value : todo) &&
-        (searchParams.get("category")
-          ? todo.category === searchParams.get("category")
-          : todo)
-    )
-  );
+  const { data: todos, isLoading: todosIsLoading } = useTodosList({
+    params: searchParams,
+  });
 
   return (
     <div className="w-600 mx-auto py-10">
@@ -58,7 +49,9 @@ export const Todos = () => {
                 disabled={searchParams.get("category") === category.value}
                 onClick={() =>
                   category.value
-                    ? setSearchParams({ category: category.value })
+                    ? setSearchParams({
+                        category: category.value,
+                      })
                     : setSearchParams()
                 }
                 className={`disabled:bg-grey disabled:opacity-75  
@@ -76,21 +69,25 @@ export const Todos = () => {
 
         <Filter
           options={filterOptions()}
-          onChange={(e) =>
-            setFilter({
-              label: e.target.value,
-              value: e.target.value === "completed" ? true : false,
-            })
-          }
+          onChange={(e) => {
+            e.target.value === "all"
+              ? setSearchParams()
+              : setSearchParams({
+                  completed: e.target.value === "completed" ? "true" : "false",
+                });
+          }}
         />
 
         <div className="w-full h-2px bg-bright my-6" />
 
-        <TodoList
-          todos={todos}
-          setTodoToEdit={setTodoToEdit}
-          openModal={() => setOpenModal(true)}
-        />
+        {!todosIsLoading && !!todos.data.length && (
+          <TodoList
+            todos={todos.data}
+            setTodoToEdit={setTodoToEdit}
+            openModal={() => setOpenModal(true)}
+            searchParams={searchParams}
+          />
+        )}
         <CreateTodoForm
           openModal={openModal}
           closeModal={() => {
@@ -98,6 +95,7 @@ export const Todos = () => {
             setTodoToEdit(null);
           }}
           initialValue={todoToEdit}
+          searchParams={searchParams}
         />
       </Box>
     </div>
