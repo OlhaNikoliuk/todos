@@ -1,13 +1,13 @@
 import React from "react";
 import "./index.css";
-import Router from "./Router";
 import { BrowserRouter } from "react-router-dom";
-
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Router from "./app/components/Router";
 
-const root: HTMLElement = document.getElementById("root") as HTMLElement;
+const container: HTMLElement = document.getElementById("root") as HTMLElement;
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
 
 // Create a client
 const queryClient = new QueryClient();
@@ -22,4 +22,4 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-render(<App />, root);
+root.render(<App />);

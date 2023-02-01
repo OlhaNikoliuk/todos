@@ -32,3 +32,8 @@ export interface CreateTodoValues {
   category: TodoCategory;
   completed: boolean;
 }
+
+export type TodosSearchParams = {
+  completed: string;
+  category: TodoCategory | string;
+};

@@ -10,13 +10,12 @@ import {
   CreateTodoValues,
   FetchTodoBody,
   FetchTodoListBody,
+  TodosSearchParams,
 } from "./utils/types";
 
-export const useTodosList = ({ params }: { params?: URLSearchParams }) => {
-  const stringifyParams = params ? params?.toString() : "";
-  return useQuery<FetchTodoListBody, Error>(
-    todosKeys.list(stringifyParams),
-    () => api.fetchTodos(stringifyParams)
+export const useTodosList = ({ params }: { params?: TodosSearchParams }) => {
+  return useQuery<FetchTodoListBody, Error>(todosKeys.list(params), () =>
+    api.fetchTodos(params)
   );
 };
 
@@ -32,7 +31,7 @@ export const useTodo = (id: string) =>
 export const useCreateTodo = (): UseMutationResult<
   unknown,
   any,
-  { values: CreateTodoValues; params?: URLSearchParams },
+  { values: CreateTodoValues; params?: TodosSearchParams },
   unknown
 > => {
   const queryClient = useQueryClient();
@@ -41,7 +40,7 @@ export const useCreateTodo = (): UseMutationResult<
       await queryClient.cancelQueries(todosKeys.all());
 
       const previousTodosList = queryClient.getQueryData<FetchTodoListBody>(
-        todosKeys.list(params?.toString())
+        todosKeys.list(params)
       );
 
       if (previousTodosList) {
@@ -55,19 +54,13 @@ export const useCreateTodo = (): UseMutationResult<
           data: [...previousTodosList.data, newTodo],
         };
 
-        queryClient.setQueryData(
-          todosKeys.list(params?.toString()),
-          newTodoList
-        );
+        queryClient.setQueryData(todosKeys.list(params), newTodoList);
       }
       return { previousTodosList };
     },
 
     onError: (_, { params }, { previousTodosList }) => {
-      queryClient.setQueryData(
-        todosKeys.list(params?.toString()),
-        previousTodosList
-      );
+      queryClient.setQueryData(todosKeys.list(params), previousTodosList);
     },
 
     onSettled: () => {
@@ -79,7 +72,7 @@ export const useCreateTodo = (): UseMutationResult<
 export const useEditTodo = (): UseMutationResult<
   FetchTodoBody,
   any,
-  { id: string; values: CreateTodoValues; params?: URLSearchParams },
+  { id: string; values: CreateTodoValues; params?: TodosSearchParams },
   unknown
 > => {
   const queryClient = useQueryClient();
@@ -88,32 +81,31 @@ export const useEditTodo = (): UseMutationResult<
       await queryClient.cancelQueries(todosKeys.all());
 
       const previousTodosList = queryClient.getQueryData<FetchTodoListBody>(
-        todosKeys.list(params?.toString())
+        todosKeys.list(params)
       );
-      console.log("previousTodo", previousTodosList);
-      console.log("values", values);
 
       if (previousTodosList) {
         const newTodoList = {
           ...previousTodosList,
           data: previousTodosList.data.map((todo) =>
-            todo.id !== id ? todo : { ...todo, completed: !todo.completed }
+            todo.id !== id
+              ? todo
+              : {
+                  title: values.title,
+                  description: values.description,
+                  category: values.category,
+                  completed: !todo.completed,
+                }
           ),
         };
 
-        queryClient.setQueryData(
-          todosKeys.list(params?.toString()),
-          newTodoList
-        );
+        queryClient.setQueryData(todosKeys.list(params), newTodoList);
       }
       return { previousTodosList };
     },
 
     onError: (_, { params }, { previousTodosList }) => {
-      queryClient.setQueryData(
-        todosKeys.list(params?.toString()),
-        previousTodosList
-      );
+      queryClient.setQueryData(todosKeys.list(params), previousTodosList);
     },
 
     onSettled: () => {

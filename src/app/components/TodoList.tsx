@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Checkbox } from "@mui/material";
 import { BsList, BsTrash } from "react-icons/bs";
 import { FiEdit2 } from "react-icons/fi";
-import { Todo } from "../../data/utils/types";
+import { Todo, TodosSearchParams } from "../../data/utils/types";
 import { ConfirmModal } from "./ConfirmModal";
 import { styled } from "@mui/system";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
@@ -20,7 +20,7 @@ interface TodoListProps {
   todos: Todo[];
   setTodoToEdit: (todo: Todo) => void;
   openModal: () => void;
-  searchParams?: URLSearchParams;
+  searchParams?: TodosSearchParams;
 }
 
 const TodoList = ({

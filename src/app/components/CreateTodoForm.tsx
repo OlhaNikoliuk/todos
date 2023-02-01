@@ -2,9 +2,8 @@ import { Modal, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AddButton } from "./AddButton";
-import { TodosState, useTodos } from "../../data/store";
 import { styled } from "@mui/system";
-import { Todo, TodoCategory } from "../../data/utils/types";
+import { Todo, TodoCategory, TodosSearchParams } from "../../data/utils/types";
 import { Filter } from "./Filter";
 import { categoriesOptions } from "../../data/utils/categoriesOptions";
 import { useCreateTodo, useEditTodo } from "../../data/hooks";
@@ -32,7 +31,7 @@ interface CreateTodoFormProps {
   openModal: boolean;
   closeModal: () => void;
   initialValue?: Todo;
-  searchParams?: URLSearchParams;
+  searchParams?: TodosSearchParams;
 }
 
 interface TodoFormProps {
@@ -68,6 +67,7 @@ const CreateTodoForm = ({
           description: data?.description,
           category: data.category,
         },
+        params: searchParams,
       });
     } else {
       createTodo({
