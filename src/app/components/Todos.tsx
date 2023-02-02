@@ -62,7 +62,11 @@ export const Todos = () => {
           <h1 className="text-2xl font-bold  text-white ">My todo list</h1>
           <BsListCheck color="white" size={24} />
         </div>
-        <AddButton onClick={() => setOpenModal(true)} text="Add new" />
+        <AddButton
+          onClick={() => setOpenModal(true)}
+          text="Add new"
+          id="add-todo-btn"
+        />
         <div className="w-full h-2px bg-bright my-6" />
         <div className="flex wrap gap-4 w-full justify-between mb-4">
           {[{ label: "All", value: undefined }, ...categoriesOptions()].map(

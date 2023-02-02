@@ -42,6 +42,7 @@ export const ConfirmModal = ({
           <button
             disabled={isLoading}
             onClick={handleReject}
+            id="reject-button"
             className="bg-white text-bright px-6 py-3 rounded-md  text-white font-semibold text-md flex items-center justify-center"
           >
             {rejectBtnText}
@@ -49,6 +50,7 @@ export const ConfirmModal = ({
           <button
             disabled={isLoading}
             onClick={handleConfirm}
+            id="confirm-button"
             className="bg-main-gradient px-6 py-3 rounded-md text-white font-semibold text-md flex items-center justify-center"
           >
             {confirmBtnText}

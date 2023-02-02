@@ -107,6 +107,7 @@ const CreateTodoForm = ({
       className="w-screen h-screen relative"
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
+      data-testid="create-todo-form"
     >
       <div className="absolute top-0 right-0 p-10 pt-20 w-500 m-auto min-h-screen flex align-center justify-center rounded-md bg-dark">
         <form
@@ -123,6 +124,7 @@ const CreateTodoForm = ({
                 autoFocus
                 label="Category"
                 options={categoriesOptions()}
+                data-testid="category-filter"
               />
             )}
           />
@@ -143,7 +145,11 @@ const CreateTodoForm = ({
               <StyledInput {...field} className="mb-5 " label="Description" />
             )}
           />
-          <AddButton type="submit" text={initialValue ? "Edit" : "Add"} />
+          <AddButton
+            type="submit"
+            text={initialValue ? "Edit" : "Add"}
+            data-testid="create-todo-button"
+          />
         </form>
       </div>
     </Modal>

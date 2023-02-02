@@ -46,9 +46,12 @@ const TodoList = ({
             className={`flex justify-between w-full py-3 px-4 rounded mb-2 last-of-type:mb-0 text-white items-start ${
               getCurrentColor()[todo.category]
             }`}
+            data-testid="todo-item"
+            id={todo.id}
           >
             <div className="flex gap-2 items-start">
               <StyledCheckBox
+                id="todo-checked"
                 checked={todo.completed}
                 onClick={() =>
                   editTodo({
@@ -69,7 +72,11 @@ const TodoList = ({
               </div>
             </div>
             <div className="flex gap-3 items-center cursor-pointer">
-              <BsTrash onClick={() => setTodoToRemove(todo)} size={22} />
+              <BsTrash
+                onClick={() => setTodoToRemove(todo)}
+                size={22}
+                id="delete-todo-btn"
+              />
 
               <FiEdit2
                 size={22}
@@ -77,6 +84,9 @@ const TodoList = ({
                   setTodoToEdit(todo);
                   openModal();
                 }}
+                data-testid="edit-todo-btn"
+                id="edit-todo-btn"
+                type="button"
               />
               <BsList onClick={() => navigate(`${todo.id}`)} size={22} />
             </div>

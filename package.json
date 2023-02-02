@@ -56,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.30.0",
     "eslint": "^8.32.0",
     "eslint-config-react-app": "^7.0.1",
     "esmify": "^2.1.1",
